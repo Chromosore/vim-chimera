@@ -21,8 +21,16 @@ fun! s:update()
 	call s:nohlsearch()
 endfun
 
-noremap  <silent> <Plug>(chimera-nohl) :<C-U>nohlsearch<CR>
-noremap! <expr>   <Plug>(chimera-nohl) execute('nohlsearch')[-1]
+if has('patch-8.2.1978') || has('nvim-0.3.0')
+	" Makes everyone's life easier
+	noremap  <silent> <Plug>(chimera-nohl) <Cmd>nohlsearch<CR>
+	noremap! <silent> <Plug>(chimera-nohl) <Cmd>nohlsearch<CR>
+else
+	noremap  <silent> <Plug>(chimera-nohl) :<C-U>nohlsearch<CR>
+	noremap! <expr>   <Plug>(chimera-nohl) execute('nohlsearch')[-1]
+	" Unmap it to avoid bad surprises
+	xunmap            <Plug>(chimera-nohl)
+endif
 
 fun! s:nohlsearch()
 	if !v:hlsearch || mode() isnot 'n' | return | endif
@@ -47,7 +55,6 @@ if get(g:, 'chimera_do_mappings', 1)
 	for key in ['/', '?', 'n', 'N', '*', 'g*', '#', 'g#']
 		exec printf(':nmap %s <Plug>(chimera-skip)<Plug>(chimera-%s)', key, key)
 		exec printf(':omap %s <Plug>(chimera-skip)<Plug>(chimera-%s)', key, key)
-		exec printf(':xmap %s <Plug>(chimera-skip)<Plug>(chimera-%s)', key, key)
 	endfor
 endif
 
