@@ -51,7 +51,7 @@ if get(g:, 'chimera_do_mappings', 1)
 	endfor
 endif
 
-augroup SearchHighlight
+augroup Chimera
 	au!
 	au CursorMoved * call s:update()
 	au InsertEnter * call s:nohlsearch()
