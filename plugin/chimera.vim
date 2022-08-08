@@ -8,13 +8,13 @@ set cpo&vim
 " ]]]
 let g:loaded_chimera = 1
 
-let s:skip = 0
+let s:skip = v:false
 
 fun! s:update()
 	if !v:hlsearch || mode() isnot 'n' | return | endif
 
-	if s:skip > 0
-		let s:skip -= 1
+	if s:skip
+		let s:skip = v:false
 		return
 	endif
 
@@ -37,13 +37,13 @@ fun! s:nohlsearch()
 	silent call feedkeys("\<Plug>(chimera-nohl)", 'm')
 endfun
 
-fun! s:skip_one()
-	let s:skip += 1
+fun! s:skip()
+	let s:skip = v:true
 	return ''
 endfun
 
-noremap  <expr> <Plug>(chimera-skip) <SID>skip_one()
-noremap! <expr> <Plug>(chimera-skip) <SID>skip_one()
+noremap  <expr> <Plug>(chimera-skip) <SID>skip()
+noremap! <expr> <Plug>(chimera-skip) <SID>skip()
 
 
 for key in ['/', '?', 'n', 'N', '*', 'g*', '#', 'g#']
