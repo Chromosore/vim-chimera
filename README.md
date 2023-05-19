@@ -1,5 +1,7 @@
 # vim-chimera
 
+> See the note at the end of the § Hybrid Approach
+
 vim-chimera clears the search matches (`'hlsearch'`) when you're not
 searching.
 
@@ -45,6 +47,11 @@ That's why I created this plugin. It uses a hybrid approach because it
 relies on both autocommands and mappings. That is, it clears matches when
 the cursor is moved - without checking the new position of the cursor -
 unless the cursor move was initiated by one of the search commands.
+
+EDIT before archiving: My *hybrid* approach was actually not a silver bullet
+or a magic remedy. It had its own flaws. I could've fixed it but I did not do
+it and now that I don't use it anymore I don't want anyone to be fooled by this
+promising bafflegab.
 
 ---
 
